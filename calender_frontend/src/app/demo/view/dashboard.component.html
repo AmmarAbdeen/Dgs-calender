@@ -1,0 +1,60 @@
+<div class="p-grid">
+	
+	<div class="p-col-9">
+		<div class="card">
+			<h5>Calendar</h5>
+			<full-calendar [options]="options"></full-calendar>
+
+			<p-dialog [(visible)]="eventDialog" [style]="{width: '450px'}" header="Event Details" [modal]="true" [closable]="true">
+				<p-messages></p-messages>
+				<ng-template pTemplate="content">
+					<div class="p-fluid">
+						<div class="p-field">
+							<label for="title">Title</label>
+							<input id="title" type="text" pInputText *ngIf="clickedEvent" [(ngModel)]="cEvent.title" [required]="true">
+						</div>
+						<div class="p-field">
+							<label for="start">From</label>
+							<p-calendar id="start" *ngIf="clickedEvent" [(ngModel)]="cEvent.start" [showTime]="true" appendTo="body"></p-calendar>
+						</div>
+						<div class="p-field">
+							<label for="end">To</label>
+							<p-calendar id="end" *ngIf="clickedEvent" [(ngModel)]="cEvent.end" [showTime]="true" appendTo="body"></p-calendar>
+						</div>
+						<div class="p-field">
+							<p-dropdown [(ngModel)]="cEvent.sector" [options]="sectors" *ngIf="clickedEvent" [required]="true"
+						     id="sector" placeholder="Sector"></p-dropdown>
+						</div>
+						<div class="p-field-checkbox">
+							<p-checkbox inputId="cEvent.allDay" binary ="true" *ngIf="clickedEvent" [(ngModel)]="cEvent.allDay"></p-checkbox>
+							<label >All Day</label>
+						</div>
+						
+					</div>
+				</ng-template>
+
+				<ng-template pTemplate="footer">
+					<button pButton label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+					<button pButton label="Reset" icon="pi pi-refresh" class="p-button-text" (click)="reset()"></button>
+				</ng-template>
+			</p-dialog>
+		</div>
+	</div>
+
+	<div class="p-col-3 p-lg-3">
+		<div class="card">
+			<div class="p-formgroup-inline">
+				<h5>Events</h5>
+				<div *ngIf="this.adminUser">
+					<button pButton pRipple style="margin-left:130px ; margin-bottom: 5px;" (click)="routeToAdd()" type="button" icon="pi pi-plus" class="p-button-rounded"></button>
+				</div>
+			</div>
+			<p-orderList [value]="events"  [listStyle]="{'height':'auto'}"  dragdrop="true" >
+				<ng-template let-event pTemplate="item" >
+					<div [style]="{'background-color': event.color}" style=" padding: 5px; color: white; font-weight: bold;border-radius: 5px;">{{event.title}}</div>
+				</ng-template>
+			</p-orderList>
+		</div>
+	</div>
+	
+</div>

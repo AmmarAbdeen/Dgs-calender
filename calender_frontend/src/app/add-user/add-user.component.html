@@ -1,0 +1,106 @@
+<form #addUser="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p-messages></p-messages>
+    <div class="p-grid" >
+
+        <div class="p-col-12 p-md-12">
+            <div class="card">
+                <h5>Add Users</h5>
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class="p-field p-col-12 p-md-6">
+							<label>Username<span class="required-asterisk"
+								style="color: red;">*</span></label>
+                            <input [(ngModel)]="user.username" formControlName="username"
+                                id="username" name="username"  pInputText type="text">
+                                <div *ngIf="(form.get('username').invalid&&form.get('username').touched)||validateAllForm"
+                               		 class="p-error">
+                                    <div *ngIf="form.get('username').errors?.required"
+                                        class="p-error" >
+                                        Username is required
+                                    </div>
+                                
+                            	</div>
+                    </div>                 
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <label>Full Name<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        <input [(ngModel)]="user.fullName" formControlName="fullName"
+                            id="fullName" name="fullName"  pInputText type="text">
+                            <div *ngIf="(form.get('fullName').invalid&&form.get('fullName').touched)||validateAllForm"
+                                    class="p-error">
+                                <div *ngIf="form.get('fullName').errors?.required"
+                                    class="p-error" >
+                                    Full name is required
+                                </div>
+                            
+                            </div>
+                    </div>    
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <label>Password<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        <input [(ngModel)]="user.password" formControlName="password"
+                            id="password" name="password"  pInputText type="text">
+                            <div *ngIf="(form.get('password').invalid&&form.get('password').touched)||validateAllForm"
+                                    class="p-error">
+                                <div *ngIf="form.get('password').errors?.required"
+                                    class="p-error" >
+                                    Password is required
+                                </div>
+                                <div *ngIf="form.get('password').errors?.minlength||form.get('password').errors?.maxlength"
+                                    class="p-error">
+                                    Password must be 6 -> 10 letters
+                                </div>
+                                
+                            </div>
+                    </div>    
+
+					<div class="p-field p-col-12 p-md-6">
+                        <label>Email<span class="required-asterisk"
+                            style="color: red;">*</span></label>
+                        <input [(ngModel)]="user.email" formControlName="email"
+                            id="email" name="email"  pInputText type="text">
+                            <div *ngIf="(form.get('email').invalid&&form.get('email').touched)||validateAllForm"
+                                    class="p-error">
+                                <div *ngIf="form.get('email').errors?.required"
+                                    class="p-error" >
+                                    Email is required
+                                </div>
+                                <div *ngIf="form.get('email').errors?.pattern"
+                                    class="p-error" >
+                                    Please enter vaild Email
+                                </div>
+                            
+                            </div>
+                    </div>  
+                  
+                </div>
+            </div>
+            <div class="card">
+                <h5>Add Privileges</h5>
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class=" p-field p-col-12 p-md-12">
+                        <p-tree [value]="userTree" selectionMode="checkbox" aria-checked="true"  [(selection)]="treeSelection"(onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)" ></p-tree>    
+                    </div>  
+                    <div class="ui-g form-group"  style="margin-left: auto;width: 20%;">
+                        <div class=" ui-g-12 ui-md-6">
+                            <div class=" ui-g-12 ui-md-6">
+                                <button  class="p-button-rounded p-button-success" icon="pi pi-check" label="Save" pButton pRipple
+                                    style="margin-top: 20px;" type="submit"></button>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                                <button  class="p-button-rounded p-button-cancel" icon="pi pi-times"
+                                    label="Cancel" pButton pRipple (click)="cancel()" style="margin-top: 20px; background-color: #FBC02D;"
+                                    type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</form>

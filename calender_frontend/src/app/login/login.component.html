@@ -1,0 +1,77 @@
+<div class="login-body">
+    <div class="login-card">
+        <div class="top-border"></div>
+        <div class="login-content">
+            <h1>Login</h1>
+            <p>Welcome, please use the form to Login.</p>
+            <div class="ui-g-12" *ngIf="errormsg">
+                <p-message severity="error" text="Invalid username or password"></p-message>
+            </div>
+            <div class="ui-g-12" *ngIf="sentMessageAppear">
+                <p-message severity="info" text="Kindly informed that your password has been sent to your email"></p-message>
+            </div>
+            <form #login="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form">
+
+                        <div class="username-container">
+                            <label>Username</label>
+                            <div class="login-input">
+                                <input type="text" autocomplete="off" placeholder="Enter your username" 
+                                [(ngModel)]="user.username" formControlName="username" id="username" pInputText>
+                                <div *ngIf="(form.get('username').invalid&&form.get('username').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('username').errors?.required"
+                                                    class="p-error" >
+                                                    Please Enter your username
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="password-container">
+                            <label>Password</label>
+                            <div class="login-input">
+                                <input type="password" autocomplete="off" placeholder="Enter your password" 
+                                    [(ngModel)]="user.password" formControlName="password" id="password" pInputText>
+                                <div *ngIf="(form.get('password').invalid&&form.get('password').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('password').errors?.required"
+                                                    class="p-error" >
+                                                    Please Enter your Password
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="signin-container" style="text-align: center;">
+                            <a href="forgetpassword" class="forget-password">Forget Password</a>
+                        </div>
+                        <div style="height: 70px;">
+                            <button pButton type="submit" class="p-button-rounded p-button-info" 
+                                label="Login" style="width: 100%; margin-top: 20px;"></button>
+                        </div>  
+                        <div class="signin-container" style="text-align: center; margin-bottom: 60px;">
+                            <a href="sigin" class="signin">Sign in</a>
+                        </div>                            
+                          
+            </form>
+            
+            <!-- <div class="username-container">
+                <label>Username</label>
+                <div class="login-input">
+                    <input type="text" autocomplete="off" placeholder="Enter your username" pInputText>
+                </div>
+            </div>
+            <div class="password-container">
+                <label>Password</label>
+                <div class="login-input">
+                    <input type="password" autocomplete="off" placeholder="Enter your password" pInputText>
+                </div>
+            </div>
+            <div class="forgetpassword-container">
+                <a href="#" class="forget-password">Forget Password?</a>
+            </div>
+            <div>
+                <button pButton type="button" class="p-button-rounded p-button-info" 
+                    label="Login" style="width: 100%; margin-top: 20px;"></button>
+            </div> -->
+        </div>
+    </div>
+</div>

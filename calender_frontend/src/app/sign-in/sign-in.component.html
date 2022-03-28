@@ -1,0 +1,89 @@
+<div class="login-body">
+    <div class="login-card">
+        <div class="top-border"></div>
+        <div class="login-content">
+            <h1>Sign In </h1>
+            <div class="ui-g-12" *ngIf="errormsg">
+                <p-message severity="error" text={{errorText}}></p-message>
+            </div>
+    
+            <form #signin="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form">
+                
+                        <div class="username-container">
+                            <label>Username</label>
+                            <div class="login-input">
+                                <input type="text" autocomplete="off" 
+                                [(ngModel)]="user.username" formControlName="username" id="username" pInputText>
+                                <div *ngIf="(form.get('username').invalid&&form.get('username').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('username').errors?.required"
+                                                    class="p-error" >
+                                                    Username is required
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fullName-container">
+                            <label>Full Name</label>
+                            <div class="login-input">
+                                <input type="text" autocomplete="off" 
+                                [(ngModel)]="user.fullName" formControlName="fullName" id="fullName" pInputText>
+                                <div *ngIf="(form.get('fullName').invalid&&form.get('fullName').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('fullName').errors?.required"
+                                                    class="p-error" >
+                                                    Full name is required
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="password-container">
+                            <label>Password</label>
+                            <div class="login-input">
+                                <input type="password" autocomplete="off" 
+                                    [(ngModel)]="user.password" formControlName="password" id="password" pInputText>
+                                <div *ngIf="(form.get('password').invalid&&form.get('password').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('password').errors?.required"
+                                                    class="p-error" >
+                                                    Please Enter your Password
+                                                </div>
+                                                <div *ngIf="form.get('password').errors?.minlength||form.get('password').errors?.maxlength"
+                                                    class="p-error">
+                                                    Password must be 6 -> 10 letters
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Email-container">
+                            <label>Email</label>
+                            <div class="login-input">
+                                <input type="text" autocomplete="off"  
+                                [(ngModel)]="user.email" formControlName="email" id="email" pInputText>
+                                <div *ngIf="(form.get('email').invalid&&form.get('email').touched)||validateAllForm"
+                                                    class="p-error">
+                                                <div *ngIf="form.get('email').errors?.required"
+                                                    class="p-error" >
+                                                    Email is required
+                                                </div>
+                                                <div *ngIf="form.get('email').errors?.pattern"
+                                                    class="p-error" >
+                                                    Please enter vaild Email
+                                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div>
+                            <button pButton type="submit" class="p-button-rounded p-button-info" 
+                                label="Sign In" style="width: 100%; margin-top: 20px;"></button>
+                        </div>                              
+                          
+            </form>
+            
+        
+        </div>
+    </div>
+</div>

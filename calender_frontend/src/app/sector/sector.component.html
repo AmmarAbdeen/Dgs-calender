@@ -1,0 +1,60 @@
+<form #addSector="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p-messages></p-messages>
+    <div class="p-grid" >
+
+        <div class="p-col-12 p-md-12">
+            <div class="card">
+                <h5>Add Sectors</h5>
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class="p-field p-col-12 p-md-6">
+							<label>Name<span class="required-asterisk"
+								style="color: red;">*</span></label>
+                            <input [(ngModel)]="sector.name" formControlName="name"
+                                id="name" name="name"  pInputText type="text">
+                                <div *ngIf="(form.get('name').invalid&&form.get('name').touched)||validateAllForm"
+                               		 class="p-error">
+                                    <div *ngIf="form.get('name').errors?.required"
+                                        class="p-error" >
+                                        name is required
+                                    </div>
+                                
+                            	</div>
+                    </div>                 
+
+                    
+                    <div class="p-field p-col-12 p-md-7">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="sector.color" [options]="colors"
+                                formControlName="color" id="color" name="color"
+                                placeholder="Event Color"></p-dropdown>
+                                <div *ngIf="(form.get('color').invalid&&form.get('color').touched)||validateAllForm"
+                                    class="p-error">
+                                    <div *ngIf="form.get('color').errors?.required"
+                                        class="p-error">
+                                        Please choose any Color
+                                    </div>
+                                </div>
+                        </span>
+                    </div> 
+					<div class="ui-g form-group"  style="margin-left: auto;width: 20%;">
+						<div class=" ui-g-12 ui-md-6">
+							<div class=" ui-g-12 ui-md-6">
+								<button  class="p-button-rounded p-button-success" icon="pi pi-check" label="Save" pButton pRipple
+									style="margin-top: 20px;" type="submit"></button>
+							</div>
+							<div class="ui-g-12 ui-md-6">
+								<button  class="p-button-rounded p-button-cancel" icon="pi pi-times"
+									label="Cancel" pButton pRipple (click)="cancel()" style="margin-top: 20px; background-color: #FBC02D;"
+									type="button"></button>
+							</div>
+						</div>
+					</div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</form>

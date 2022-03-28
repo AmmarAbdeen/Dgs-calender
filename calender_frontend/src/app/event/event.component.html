@@ -1,0 +1,83 @@
+<form #addEvent="ngForm" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p-messages></p-messages>
+    <div class="p-grid" >
+
+        <div class="p-col-12 p-md-12">
+            <div class="card">
+                <h5>Add Events</h5>
+                <div class="p-fluid p-formgrid p-grid">
+
+                    <div class="p-field p-col-12 p-md-6">
+							<label>Title<span class="required-asterisk"
+								style="color: red;">*</span></label>
+                            <input [(ngModel)]="cEvent.title" formControlName="title"
+                                id="title" name="title"  pInputText type="text">
+                                <div *ngIf="(form.get('title').invalid&&form.get('title').touched)||validateAllForm"
+                               		 class="p-error">
+                                    <div *ngIf="form.get('title').errors?.required"
+                                        class="p-error" >
+                                        Please Enter Event Title
+                                    </div>
+                                
+                            	</div>
+                    </div>                 
+
+                    <div class="p-field p-col-12 p-md-6">
+						<label for="start">Start</label>
+						<p-calendar [(ngModel)]="cEvent.start" dateFormat="mm-dd-yy" formControlName="start" 
+							[showTime]="true" inputId="start" placeholder="Start">
+						</p-calendar>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+						<label for="end">End</label>
+						<p-calendar [(ngModel)]="cEvent.end" dateFormat="mm-dd-yy" formControlName="end" 
+							[showTime]="true" inputId="end" placeholder="End">
+						</p-calendar>
+                    </div>
+					<div class="p-field p-col-12 p-md-6" >
+                        <span class="md-inputfield">
+                            <div class="p-field-checkbox" style="padding-top: 30px;">
+                                <p-checkbox [(ngModel)]="cEvent.allDay"
+                                    formControlName="allDay" binary="true"
+                                    inputId="cEvent.allDay">
+                                </p-checkbox>
+                                <label style="width:100%; text-align: start;" translate>All Day</label>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="cEvent.sector" [options]="sectors"
+                                formControlName="sector" id="sector" name="sector"
+                                placeholder="Sector"></p-dropdown>
+                                <div *ngIf="(form.get('sector').invalid&&form.get('sector').touched)||validateAllForm"
+                                    class="p-error">
+                                    <div *ngIf="form.get('sector').errors?.required"
+                                        class="p-error">
+                                        Please choose any sector
+                                    </div>
+                                </div>
+                        </span>
+                    </div> 
+					<div class="ui-g form-group"  style="margin-left: auto;width: 20%;">
+						<div class=" ui-g-12 ui-md-6">
+							<div class=" ui-g-12 ui-md-6">
+								<button  class="p-button-rounded p-button-success" icon="pi pi-check" label="Add" pButton pRipple
+									style="margin-top: 20px;" type="submit"></button>
+							</div>
+							<div class="ui-g-12 ui-md-6">
+								<button  class="p-button-rounded p-button-cancel" icon="pi pi-times"
+									label="Cancel" pButton pRipple (click)="cancel()" style="margin-top: 20px; background-color: #FBC02D;"
+									type="button"></button>
+							</div>
+						</div>
+					</div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</form>
