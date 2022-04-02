@@ -42,6 +42,9 @@ public class User extends BaseEntity{
 
 	@Column(name = "FULL_NAME")
 	private String fullName;
+	
+	@Column(name = "NOTIFICATION_NUMBER")
+	private int notificationNumber;
 		
 	@Column(name = "ADMIN", columnDefinition = "boolean default false")
 	private boolean admin;

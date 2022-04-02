@@ -29,6 +29,8 @@ private Long id;
 	
 	private String sessionToken;
 	
+	private int notificationNumber;
+	
 	private boolean admin;
 	
 	private List<PrivilegesDTO> privileges = new ArrayList<>();

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import com.kau.dgscalender.Notifications;
 import com.kau.dgscalender.dto.EventDTO;
 import com.kau.dgscalender.service.EventService;
 import com.kau.dgscalender.service.JWTService;
@@ -31,6 +32,8 @@ public class EventController extends BaseController {
 	private EventService eventService;
 	@Autowired
 	protected JWTService jwtservice;
+	
+	private Notifications notifications = new Notifications(0);
 
 	@GetMapping(value = "/allevents")
 	public ResponseEntity<?> getAllEvents(HttpServletRequest request,
@@ -60,7 +63,7 @@ public class EventController extends BaseController {
 			Map<String, String> tokenData = (Map<String, String>) request.getAttribute("tokenData");
 			String username = tokenData.get("userName");
 			jwtservice.checkPrivilegesAccess(request, username);
-			EventDTO eventResponse = eventService.addEvent(eventRequest,username);
+			EventDTO eventResponse = eventService.addEvent(eventRequest,username,notifications);
 
 			return success(new Gson().toJson(eventResponse));
 

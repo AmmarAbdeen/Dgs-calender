@@ -5,7 +5,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DatePipe, HashLocationStrategy, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
-
+// import {MatIconModule} from '@angular/material/icon';
+  
 // PrimeNG Components for demos
 import {AccordionModule} from 'primeng/accordion';
 import {AutoCompleteModule} from 'primeng/autocomplete';
@@ -258,7 +259,9 @@ FullCalendarModule.registerPlugins([
         TreeModule,
         TreeTableModule,
         VirtualScrollerModule,
-        AppCodeModule
+        AppCodeModule,
+        BadgeModule
+        // MatIconModule
     ],
     declarations: [
         AppComponent,

@@ -65,6 +65,7 @@ public class UserService extends BaseService {
 			}
 
 			User user = mapToEntity(request, request.isAdmin());
+			user.setNotificationNumber(0);		
 			// user = addDefaultPrivilegesToUser(user);
 			userDAO.save(user);
 			return request;
@@ -297,6 +298,7 @@ public class UserService extends BaseService {
 		userDTO.setFullName(user.getFullName());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setAdmin(user.isAdmin());
+		userDTO.setNotificationNumber(user.getNotificationNumber());
 		List<PrivilegesDTO> privilegesDTO = new ArrayList<>();
 		for (Privileges privilege : user.getPrivilege()) {
 			privilegesDTO.add(mapPrivilegToDTO(privilege));

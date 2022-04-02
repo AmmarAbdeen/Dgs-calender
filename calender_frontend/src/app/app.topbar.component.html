@@ -134,7 +134,9 @@
                 </li>
                 <li>
                     <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                        <i class="pi pi-globe"></i>
+                        <i class="pi pi-globe"  pBadge
+                        severity="success"
+                        value="{{ notifications }}"></i>
                         <div class="menu-text">
                             <span class="menu-title">Notification</span>
                             <span class="menu-subtitle">No new notification</span>

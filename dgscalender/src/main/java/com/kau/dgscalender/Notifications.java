@@ -11,6 +11,9 @@ public class Notifications {
 	public Notifications(int count) {
 		this.count = count;
 	}
+	
+	public Notifications() {
+	}
 
 	public void increment() {
 		this.count++;

@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.kau.dgscalender.Notifications;
 import com.kau.dgscalender.dao.EventDAO;
 import com.kau.dgscalender.dao.SectorsDAO;
 import com.kau.dgscalender.dao.UserDAO;
@@ -26,6 +28,8 @@ import lombok.extern.apachecommons.CommonsLog;
 @Service
 public class EventService extends BaseService {
 	@Autowired
+    private SimpMessagingTemplate template;
+	@Autowired
 	private EventDAO eventDAO;
 	@Autowired
 	private UserDAO userDAO;
@@ -36,7 +40,7 @@ public class EventService extends BaseService {
 		return new Gson().toJson(mapToDTOList(events));
 	}
 
-	public EventDTO addEvent(EventDTO request,String username) throws BusinessException {
+	public EventDTO addEvent(EventDTO request,String username,Notifications notifications) throws BusinessException {
 		try {
 			log.info("Enter addEvent Function..with title= " + request.getTitle());
 			User user = userDAO.findByUsername(username);
@@ -56,12 +60,22 @@ public class EventService extends BaseService {
 			Event event = mapToEntity(request);
 			event.setCreatedBy(user);
 			event.setSector(sector);
+			sendNotification(notifications);
 			eventDAO.save(event);
 			return request;
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage(), e);
 		}
 
+	}
+	
+	public void sendNotification(Notifications notifications) {
+		
+	    // Increment Notification by one
+        notifications.increment();
+notifications.setCount(100);
+        // Push notifications to front-end
+        template.convertAndSend("/topic/notification", notifications);
 	}
 
 	public EventDTO updateEvent(EventDTO request,String username) throws BusinessException {
