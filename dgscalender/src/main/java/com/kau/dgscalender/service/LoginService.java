@@ -32,7 +32,7 @@ public class LoginService extends BaseService {
 	public UserDTO login(UserDTO request) throws BusinessException{
 		try {
 			log.info("Enter login Function...with request :" + request);
-			User user = userDAO.findByUserNameContainingIgnoreCaseAndPassword(request.getUsername(),
+			User user = userDAO.findByUsernameAndPassword(request.getUsername(),
 					request.getPassword());
 			
 			if (user == null) {

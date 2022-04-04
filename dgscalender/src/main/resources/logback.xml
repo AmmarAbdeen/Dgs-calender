@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<property name="LOGSPATH" value="../logs/"/>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+			<pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%15.15t]){faint} %clr(%class{0}.%M){cyan} %clr(:){faint} %X-%m%n%wEx</pattern>
+ 		</encoder>
+    </appender>
+        <appender name="SAVE-TO-FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+ 
+ 		<file>${LOGSPATH}calendar.log</file>         
+		
+		<encoder>
+			<pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr([%15.15t]){faint} %clr(%class{0}.%M){cyan} %clr(:){faint} %X-%m%n%wEx</pattern>
+		</encoder>
+		
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGSPATH}calendar.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        
+	</appender>
+	
+	<logger name="com.kau.dgscalender" level="info" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="SAVE-TO-FILE"/>
+	</logger>
+</configuration>

@@ -18,7 +18,11 @@ public interface UserDAO extends JpaRepository<User,Long>{
 	
 	User findByUsernameContainingIgnoreCaseAndIdNot( String username,Long id);
 	
+	User findByUsernameAndIdNot( String username,Long id);
+	
 	User findByUsername ( String username);
+	
+	User findByUsernameContainingIgnoreCaseAndPassword( String username,String password);
 	
 	User findByUsernameAndPassword ( String username,String password);
 	

@@ -50,7 +50,7 @@ public class UserService extends BaseService {
 				throw new BusinessException("Email is required");
 			}
 
-			User userAlreadyExist = userDAO.findByUsernameContainingIgnoreCase(request.getUsername());
+			User userAlreadyExist = userDAO.findByUsername(request.getUsername());
 			if (userAlreadyExist != null) {
 				throw new BusinessException("This Username already Exist Please write another username");
 			}
@@ -140,7 +140,7 @@ public class UserService extends BaseService {
 				throw new BusinessException("Email is required");
 			}
 
-			User userAlreadyExist = userDAO.findByUsernameContainingIgnoreCaseAndIdNot(request.getUsername(),
+			User userAlreadyExist = userDAO.findByUsernameAndIdNot(request.getUsername(),
 					request.getId());
 			if (userAlreadyExist != null) {
 				throw new BusinessException("This Username already Exist Please write another username");
