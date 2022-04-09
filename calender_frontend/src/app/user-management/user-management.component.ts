@@ -20,6 +20,7 @@ export class UserManagementComponent implements OnInit {
       {field: 'username', header: 'User Name'},
       {field: 'email', header: 'Email'},
       {field: 'fullName', header: 'Full Name'},
+      {field: 'sector', header: 'Sector'},
       {field: 'admin', header: 'Admin'},
       {field: 'Action', header: 'Action'}
      ];

@@ -64,6 +64,7 @@ public class LoginService extends BaseService {
 		userDTO.setUsername(user.getUsername());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setAdmin(user.isAdmin());
+		userDTO.setSector(user.getSector()!= null ?user.getSector().getName():null);
 		if(showSesensitiveData) {
 			userDTO.setPassword(user.getPassword());
 		}				

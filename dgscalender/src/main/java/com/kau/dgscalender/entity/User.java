@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,6 +55,10 @@ public class User extends BaseEntity{
 			@JoinColumn(referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(referencedColumnName = "ID") })
 	private List<Privileges> privilege;
+	
+	@ManyToOne
+	@JoinColumn(name = "SECTOR_ID")
+	private Sectors sector;
 
 	
 

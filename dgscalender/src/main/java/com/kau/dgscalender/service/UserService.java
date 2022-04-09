@@ -13,10 +13,12 @@ import org.springframework.scheduling.annotation.Async;
 
 import com.google.gson.Gson;
 import com.kau.dgscalender.dao.PrivilegesDAO;
+import com.kau.dgscalender.dao.SectorsDAO;
 import com.kau.dgscalender.dao.UserDAO;
 import com.kau.dgscalender.dto.PrivilegesDTO;
 import com.kau.dgscalender.dto.UserDTO;
 import com.kau.dgscalender.entity.Privileges;
+import com.kau.dgscalender.entity.Sectors;
 import com.kau.dgscalender.entity.User;
 import com.kau.dgscalender.exception.BusinessException;
 import lombok.extern.apachecommons.CommonsLog;
@@ -33,6 +35,8 @@ public class UserService extends BaseService {
 	private JavaMailSender javaMailSender;
 	@Autowired
 	private FreeMakerService freeMakerService;
+	@Autowired
+	private SectorsDAO sectorsDAO;
 
 	public UserDTO addUser(UserDTO request) throws BusinessException {
 		try {
@@ -48,6 +52,10 @@ public class UserService extends BaseService {
 			}
 			if (request.getEmail() == null || request.getEmail().isEmpty()) {
 				throw new BusinessException("Email is required");
+			}
+			Sectors sector = sectorsDAO.findByName(request.getSector());
+			if (sector == null) {
+				throw new BusinessException("this sector does not found");
 			}
 
 			User userAlreadyExist = userDAO.findByUsername(request.getUsername());
@@ -65,7 +73,8 @@ public class UserService extends BaseService {
 			}
 
 			User user = mapToEntity(request, request.isAdmin());
-			user.setNotificationNumber(0);		
+			user.setNotificationNumber(0);	
+			user.setSector(sector);
 			// user = addDefaultPrivilegesToUser(user);
 			userDAO.save(user);
 			return request;
@@ -298,6 +307,7 @@ public class UserService extends BaseService {
 		userDTO.setFullName(user.getFullName());
 		userDTO.setEmail(user.getEmail());
 		userDTO.setAdmin(user.isAdmin());
+		userDTO.setSector(user.getSector()!=null?user.getSector().getName():null);
 		userDTO.setNotificationNumber(user.getNotificationNumber());
 		List<PrivilegesDTO> privilegesDTO = new ArrayList<>();
 		for (Privileges privilege : user.getPrivilege()) {

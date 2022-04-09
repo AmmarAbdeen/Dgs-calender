@@ -16,6 +16,8 @@ export class DashboardDemoComponent implements OnInit {
 
     events: any[];
 
+    sectorsInfo: any[];
+
     options: any;
 
     header: any;
@@ -40,6 +42,7 @@ export class DashboardDemoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getSectors()
         this.adminUser =  JSON.parse(localStorage.getItem('user')).admin;
         this.generalService.getAllEvents().subscribe(
             (responseData: any) => {
@@ -122,6 +125,7 @@ export class DashboardDemoComponent implements OnInit {
 
     getSectors(){
         this.sectors =[];
+        this.sectorsInfo =[];
         this.generalService.getSectors().subscribe(
           (responseData: any) => {
               for (let i = 0; i < responseData.length; i++) {
@@ -130,6 +134,7 @@ export class DashboardDemoComponent implements OnInit {
                       value: responseData[i].name
                   });
               }
+              this.sectorsInfo = responseData;
           },
           (error: any) => {
             document.documentElement.scrollTop = 0;

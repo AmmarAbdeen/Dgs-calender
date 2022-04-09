@@ -44,6 +44,21 @@
 	<div class="p-col-3 p-lg-3">
 		<div class="card">
 			<div class="p-formgroup-inline">
+				<h5>Sectors</h5>
+			</div>
+			<p-orderList [value]="sectorsInfo"  [listStyle]="{'height':'auto'}" dragdrop="true" >
+				<ng-template let-sector pTemplate="item" >
+					<span class="md-inputfield">
+						<div class="p-field-checkbox">
+							<div [style]="{'background-color': sector.color}" style=" padding: 5px;width: 10%;border-radius: 5px;"></div>
+							<label style="width:100%; text-align: start;">{{sector.name}}</label>
+						</div>
+					</span>						
+				</ng-template>
+			</p-orderList>
+		</div>
+		<div class="card">
+			<div class="p-formgroup-inline">
 				<h5>Events</h5>
 				<div *ngIf="this.adminUser">
 					<button pButton pRipple style="margin-left:130px ; margin-bottom: 5px;" (click)="routeToAdd()" type="button" icon="pi pi-plus" class="p-button-rounded"></button>

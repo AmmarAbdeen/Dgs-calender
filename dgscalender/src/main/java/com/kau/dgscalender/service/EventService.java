@@ -50,6 +50,9 @@ public class EventService extends BaseService {
 			if (request.getTitle() == null || request.getTitle().isEmpty()) {
 				throw new BusinessException("Event title is required");
 			}
+			if (request.getSector() == null || request.getSector().isEmpty()) {
+				throw new BusinessException("Sector can't be empty");
+			}
 			Sectors sector = sectorsDAO.findByName(request.getSector());
 			if (sector == null) {
 				throw new BusinessException("this sector does not found");

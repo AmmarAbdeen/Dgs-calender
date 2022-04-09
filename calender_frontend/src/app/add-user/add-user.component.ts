@@ -16,10 +16,12 @@ export class AddUserComponent implements OnInit {
   form = new FormGroup({
     username: new FormControl('', [Validators.required]),
     fullName: new FormControl('', [Validators.required]),
+    sector: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required,Validators.minLength(6), Validators.maxLength(10)]),
     email:new FormControl('', [Validators.required,Validators.pattern("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")])
 });
 colors: SelectItem[];
+sectors: SelectItem[];
 user : User;
 userTree: TreeNode[];
 parentprivileges: Privilege[];
@@ -40,6 +42,7 @@ constructor(private router: Router,
  }
 
   ngOnInit(): void {
+    this.getSectors();
     this.selected = [];
     this.treeSelection = [];
     this.userInfo = JSON.parse(localStorage.getItem('user'));
@@ -84,6 +87,26 @@ constructor(private router: Router,
              
             }
         );
+}
+
+getSectors(){
+  this.sectors =[];
+  this.generalService.getSectors().subscribe(
+    (responseData: any) => {
+        for (let i = 0; i < responseData.length; i++) {
+            this.sectors.push({
+                label: responseData[i].name,
+                value: responseData[i].name
+            });
+        }
+    },
+    (error: any) => {
+      document.documentElement.scrollTop = 0;
+      this.messageService.clear();
+      console.log(error);
+      this.messageService.add({severity: 'error', detail: error.error.description});
+    }
+  );
 }
 
 getParentPrivileges(){
@@ -273,6 +296,7 @@ addParent(node: TreeNode) {
           email: this.user.email,
           admin:true,
           privileges: this.selected,
+          sector : this.user.sector
         }
 
         this.generalService.addUser(model).subscribe(

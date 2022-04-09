@@ -18,10 +18,10 @@ export class EventComponent implements OnInit {
     start: new FormControl('', [Validators.required]),
     end: new FormControl(),
     allDay:new FormControl(),
-    sector: new FormControl('', [Validators.required])
 });
 
 cEvent : Event;
+sector :any;
 sectors: SelectItem[];
 validateAllForm = false;
 @ViewChild('addEvent') addNewEventForm: NgForm;
@@ -34,7 +34,7 @@ validateAllForm = false;
    }
 
   ngOnInit(): void {
-    this.getSectors();
+    this.sector = JSON.parse(localStorage.getItem('user')).sector
   }
 
   onSubmit(){
@@ -51,7 +51,7 @@ validateAllForm = false;
           end:  this.cEvent.end != null ?this.datePipe.transform(this.cEvent.end, 'yyyy-MM-dd HH:mm:ss'):null,
           allDay: this.cEvent.allDay,
           title: this.cEvent.title,
-          sector : this.cEvent.sector
+          sector : this.sector
         }
 
         this.generalService.addEvent(model).subscribe(
@@ -70,26 +70,6 @@ validateAllForm = false;
           }
       );
     }
-  }
-
-  getSectors(){
-    this.sectors =[];
-    this.generalService.getSectors().subscribe(
-      (responseData: any) => {
-          for (let i = 0; i < responseData.length; i++) {
-              this.sectors.push({
-                  label: responseData[i].name,
-                  value: responseData[i].name
-              });
-          }
-      },
-      (error: any) => {
-        document.documentElement.scrollTop = 0;
-        this.messageService.clear();
-        console.log(error);
-        this.messageService.add({severity: 'error', detail: error.error.description});
-      }
-    );
   }
  
   cancel() {

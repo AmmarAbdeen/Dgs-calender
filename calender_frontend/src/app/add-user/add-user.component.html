@@ -73,7 +73,22 @@
                                 </div>
                             
                             </div>
-                    </div>  
+                    </div> 
+                    
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="md-inputfield">
+                            <p-dropdown [(ngModel)]="user.sector" [options]="sectors"
+                                formControlName="sector" id="sector" name="sector"
+                                placeholder="Sector"></p-dropdown>
+                                <div *ngIf="(form.get('sector').invalid&&form.get('sector').touched)||validateAllForm"
+                                    class="p-error">
+                                    <div *ngIf="form.get('sector').errors?.required"
+                                        class="p-error">
+                                        Please choose any sector
+                                    </div>
+                                </div>
+                        </span>
+                    </div> 
                   
                 </div>
             </div>

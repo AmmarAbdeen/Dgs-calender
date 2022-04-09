@@ -9,4 +9,5 @@ export class User {
     email: string;
     admin:boolean;
     privileges:Privilege[];
+    sector:string;
 }

@@ -29,6 +29,9 @@
                         <input (input)="dt.filter($event.target.value, col.field, 'contains')" *ngSwitchCase="'fullName'" class="ui-column-filter" pInputText
                         placeholder="contains" style="width: 100%; margin-top: 0;"
                         type="text">
+                        <input (input)="dt.filter($event.target.value, col.field, 'contains')" *ngSwitchCase="'sector'" class="ui-column-filter" pInputText
+                        placeholder="contains" style="width: 100%; margin-top: 0;"
+                        type="text">
                     </th>
                 </tr>
             </ng-template>
@@ -37,6 +40,7 @@
                     <td>{{rowData.username}}</td>
                     <td>{{rowData.email}}</td>
                     <td>{{rowData.fullName}}</td>
+                    <td>{{rowData.sector}}</td>
                     <td *ngIf="rowData.admin; else notAdmin">
                         <i class="pi pi-check" style="color:lime; font-size: 2em;"></i>
                     </td>

@@ -33,6 +33,8 @@ private Long id;
 	
 	private boolean admin;
 	
+	private String sector;
+	
 	private List<PrivilegesDTO> privileges = new ArrayList<>();
 
 
